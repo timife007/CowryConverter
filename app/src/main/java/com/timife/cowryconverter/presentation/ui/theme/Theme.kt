@@ -1,6 +1,5 @@
 package com.timife.cowryconverter.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,6 +8,11 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
@@ -18,9 +22,14 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = MarineBlue,
+    primaryContainer = LightBlue,
+    onPrimary = Color.White,
+    onPrimaryContainer = Color.White,
     secondary = Green,
-    surface = LightGrey,
-    onSurface = Grey
+    surface = LighterGrey,
+    background = White,
+    onSurface = Grey,
+    tertiary = LightGrey
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -40,6 +49,11 @@ fun CowryConverterTheme(
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+    val configuration = LocalConfiguration.current
+    val dimensions = if (configuration.screenWidthDp <= 360) smallDimensions
+    else if (configuration.screenWidthDp in 361..599) sw360Dimensions
+    else sw600Dimensions
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -50,9 +64,35 @@ fun CowryConverterTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    ProvideDimens(dimensions = dimensions) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }
+
+@Composable
+fun ProvideDimens(
+    dimensions: Dimensions,
+    content: @Composable () -> Unit
+) {
+    val dimensionSet = remember { dimensions }
+    CompositionLocalProvider(LocalAppDimens provides dimensionSet, content = content)
+}
+
+private val LocalAppDimens = staticCompositionLocalOf {
+    smallDimensions
+}
+
+object CowryConverterTheme {
+    val dimens: Dimensions
+        @Composable
+        get() = LocalAppDimens.current
+}
+
+val Dimens: Dimensions
+    @Composable
+    get() = CowryConverterTheme.dimens
+

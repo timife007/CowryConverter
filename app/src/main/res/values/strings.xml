@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CowryConverter</string>
+    <string name="sign_up">Sign up</string>
+    <string name="currency_calculator">Currency Calculator</string>
+    <string name="space_cannot_be_blank">Space cannot be blank</string>
+    <string name="enter_an_amount">Enter an amount</string>
+    <string name="currencies_dropdown">Currencies Dropdown</string>
+    <string name="conversion_arrow">conversion arrow</string>
+    <string name="converting">Converting</string>
+    <string name="convert">Convert</string>
+    <string name="mid_market_exchange_rate_at_13_38_utc">Mid-market exchange rate at 13:38 UTC</string>
+    <string name="info">Info</string>
 </resources>
