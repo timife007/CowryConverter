@@ -3,6 +3,7 @@ package com.timife.cowryconverter.presentation.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,7 +14,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,12 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import com.timife.cowryconverter.R
 import com.timife.cowryconverter.presentation.common.components.AppBackground
 import com.timife.cowryconverter.presentation.common.components.AppButton
 import com.timife.cowryconverter.presentation.common.components.AppTextField
+import com.timife.cowryconverter.presentation.common.components.ClickableText
 import com.timife.cowryconverter.presentation.common.components.OutlinedDropdownMenu
 import com.timife.cowryconverter.presentation.common.components.V_MultiStyleText
 import com.timife.cowryconverter.presentation.ui.theme.CowryConverterTheme
@@ -40,14 +40,14 @@ fun ConversionScreen(
 ) {
     AppBackground {
         LazyColumn(
-            modifier = modifier.padding(vertical = Dimens.grid_5, horizontal = Dimens.grid_2),
-            verticalArrangement = Arrangement.spacedBy(Dimens.grid_2)
+            modifier = modifier.fillMaxSize().padding(vertical = Dimens.grid_5, horizontal = Dimens.grid_2),
+            verticalArrangement = Arrangement.spacedBy(Dimens.grid_2),
         ) {
             item {
                 V_MultiStyleText(
                     text = stringResource(R.string.currency_calculator),
-                    color1 = MaterialTheme.colorScheme.primary,
-                    color2 = MaterialTheme.colorScheme.primary,
+                    color1 = MaterialTheme.colorScheme.primaryContainer,
+                    color2 = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier,
                     style = MaterialTheme.typography.headlineLarge.copy(
                         fontWeight = FontWeight.ExtraBold
@@ -56,7 +56,6 @@ fun ConversionScreen(
             }
 
             item {
-
                 AppTextField(
                     modifier = Modifier
                         .padding(
@@ -119,18 +118,10 @@ fun ConversionScreen(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextButton(
-                        onClick = {}
-                    ) {
-                        Text(
-                            text = stringResource(R.string.mid_market_exchange_rate_at_13_38_utc),
-                            textDecoration = TextDecoration.Underline,
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                color = MaterialTheme.colorScheme.primaryContainer,
-                                fontWeight = FontWeight.Bold
-                            ),
-                        )
-                    }
+                    ClickableText(
+                        text = stringResource(R.string.mid_market_exchange_rate_at_13_38_utc),
+                        color = MaterialTheme.colorScheme.primary
+                    )
                     IconButton(
                         modifier = Modifier
                             .clip(CircleShape)
@@ -155,6 +146,14 @@ fun ConversionScreen(
                         )
                     }
                 }
+            }
+
+            item {
+                GraphSheet(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+
             }
         }
     }

@@ -28,6 +28,7 @@ import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -221,6 +222,7 @@ fun OutlinedDropdownMenu(
     ) {
         OutlinedTextField(
             value = selectedOption,
+            textStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.surface,
                 focusedBorderColor = MaterialTheme.colorScheme.surface
@@ -231,7 +233,8 @@ fun OutlinedDropdownMenu(
                 Icon(
                     imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                     contentDescription = stringResource(R.string.currencies_dropdown),
-                    Modifier.clickable { expanded = !expanded }
+                    Modifier.clickable { expanded = !expanded },
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             },
             modifier = Modifier
@@ -251,7 +254,12 @@ fun OutlinedDropdownMenu(
         ) {
             currencyOptions.forEach { option ->
                 DropdownMenuItem(
-                    text = { Text(option) },
+                    text = {
+                        Text(
+                            option,
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
+                        )
+                    },
                     onClick = {
                         selectedOption = option
                         expanded = false
@@ -298,6 +306,31 @@ fun AppButton(
                 letterSpacing = 0.32.sp,
                 fontWeight = FontWeight.SemiBold
             ),
+        )
+    }
+}
+
+@Composable
+fun ClickableText(
+    text: String,
+    modifier: Modifier = Modifier,
+    onClick:() -> Unit ={},
+    color: Color
+){
+    TextButton(
+        modifier = modifier,
+        onClick = {
+            onClick()
+        }
+    ) {
+        Text(
+            text = text,
+            textDecoration = TextDecoration.Underline,
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = color,
+                fontWeight = FontWeight.Bold
+            ),
+            textAlign = TextAlign.Center
         )
     }
 }
