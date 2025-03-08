@@ -101,15 +101,15 @@ fun DurationTabs(
 private fun switchIndex(isSelected: Boolean, isDotSelector: Boolean): TextStyle {
     return if (isSelected) {
         MaterialTheme.typography
-            .bodyLarge.copy(
+            .titleMedium.copy(
                 color = MaterialTheme.colorScheme.onPrimary,
-                fontWeight = if (isDotSelector) FontWeight.Bold else FontWeight.Normal,
+                fontWeight =FontWeight.SemiBold,
             )
     } else {
         MaterialTheme.typography
-            .bodyLarge.copy(
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onSurface,
+            .titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = Color.LightGray,
             )
     }
 }

@@ -1,4 +1,4 @@
-package com.timife.cowryconverter
+package com.timife.cowryconverter.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -22,9 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.timife.cowryconverter.R
 import com.timife.cowryconverter.presentation.screens.ConversionScreen
 import com.timife.cowryconverter.presentation.ui.theme.CowryConverterTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)

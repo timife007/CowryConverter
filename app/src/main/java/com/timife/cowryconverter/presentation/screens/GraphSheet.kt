@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -24,12 +25,12 @@ fun GraphSheet(
             color = MaterialTheme.colorScheme.primaryContainer, shape = RoundedCornerShape(
                 Dimens.grid_2
             )
-        )
+        ).padding(vertical = Dimens.grid_3)
     ) {
-
         Box(
-            modifier = Modifier.height(Dimens.grid_29)
+            modifier = Modifier.height(Dimens.grid_32).padding(horizontal = Dimens.grid_2)
         ) {
+            Graph(modifier = Modifier.fillMaxWidth().padding(Dimens.grid_2))
         }
         ClickableText(
             text = stringResource(R.string.get_rate_alerts),
