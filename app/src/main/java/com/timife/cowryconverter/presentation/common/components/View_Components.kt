@@ -121,6 +121,7 @@ fun AppBackground(
 fun AppTextField(
     modifier: Modifier = Modifier,
     text: String = "",
+    isEnabled: Boolean = true,
     hint: String = stringResource(R.string.enter_an_amount),
     isSingleLine: Boolean = true,
     onTextChanged: (CharSequence) -> Unit = {},
@@ -143,6 +144,7 @@ fun AppTextField(
 
     val focusManager = LocalFocusManager.current
     OutlinedTextField(
+        enabled = isEnabled,
         modifier = modifier.pointerInput(fieldValue) {
             awaitEachGesture {
                 // Modifier.clickable doesn't work for text fields, so we use Modifier.pointerInput
@@ -224,9 +226,7 @@ fun OutlinedDropdownMenu(
                 unfocusedBorderColor = MaterialTheme.colorScheme.surface,
                 focusedBorderColor = MaterialTheme.colorScheme.surface
             ),
-            onValueChange = {
-
-            },
+            onValueChange = {},
             readOnly = true,
             trailingIcon = {
                 Icon(
@@ -255,8 +255,8 @@ fun OutlinedDropdownMenu(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            option.symbol,
-                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
+                            text = "${option.symbol}: ${option.name}",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold)
                         )
                     },
                     onClick = {

@@ -13,4 +13,6 @@
     <string name="get_rate_alerts">Get rate alerts straight to your email inbox</string>
     <string name="past_90_days">Past 90 days</string>
     <string name="past_30_days">Past 30 days</string>
+    <string name="conversion">0.0000</string>
+    <string name="retry">Retry</string>
 </resources>

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.timife.cowryconverter.domain.usecases.GetCurrenciesUC
 import com.timife.cowryconverter.domain.usecases.GetRatesUC
 import com.timife.cowryconverter.domain.utils.Resource
-import com.timife.cowryconverter.domain.utils.Resource.Success
 import com.timife.cowryconverter.presentation.viewmodels.data.RateUiModel
 import com.timife.cowryconverter.presentation.viewmodels.states.ConversionState
 import com.timife.cowryconverter.presentation.viewmodels.states.RatesState
@@ -37,17 +36,17 @@ class ConverterViewModel @Inject constructor(
         getAllRates()
     }
 
-
-    //Combine responses from rates and comments to have unified responses.
-    private fun getAllRates() {
+    fun getAllRates() {
+        _ratesState.value = RatesState.Loading
         viewModelScope.launch {
             combine(
-                ratesUC.invoke(),
-                currenciesUC.invoke()
+                ratesUC(),
+                currenciesUC()
             ) { ratesResponse, currenciesResponse ->
+                Pair(ratesResponse, currenciesResponse)
+            }.collect { (ratesResponse, currenciesResponse) ->
                 when {
-                    ratesResponse is Success && currenciesResponse is Success -> {
-
+                    ratesResponse is Resource.Success && currenciesResponse is Resource.Success -> {
                         val rates = ratesResponse.data?.map { rate ->
                             val currency =
                                 currenciesResponse.data?.find { it.symbol == rate.currency }
@@ -57,18 +56,31 @@ class ConverterViewModel @Inject constructor(
                                 rate = rate.rate
                             )
                         }
-                        if (rates?.isNotEmpty() == true) {
+
+                        if (!rates.isNullOrEmpty()) {
                             _ratesState.value = RatesState.Success(rates)
+                            _conversionState.update {
+                                it.copy(
+                                    fromCurrency = flowOf(rates.first()),
+                                    toCurrency = flowOf(rates.first())
+                                )
+                            }
                         }
                     }
 
                     ratesResponse is Resource.Loading || currenciesResponse is Resource.Loading -> {
                         _ratesState.value = RatesState.Loading
                     }
+
+                    ratesResponse is Resource.Error || currenciesResponse is Resource.Error -> {
+                        _ratesState.value =
+                            RatesState.Error("Failed to load rates/currencies. Check Internet connection and try again")
+                    }
                 }
             }
         }
     }
+
 
     fun selectFromCurrency(rate: RateUiModel) {
         _conversionState.update {
@@ -96,25 +108,19 @@ class ConverterViewModel @Inject constructor(
             _conversionState.update {
                 it.copy(
                     fromAmount = flowOf(amount),
-                    toAmount = flow {
-                        val exchangeRate = it.toCurrency.first().rate / it.fromCurrency.first().rate
-                        emit((amount.toDouble() * exchangeRate).toString())
-                    }
                 )
             }
         }
     }
 
-    //Ensure that fromAmount is recalculated when toAmount changes.
-    fun updateToAmount(amount: String) {
+    fun convertCurrency(amount: String) {
         if (amount.isNotEmpty()) {
             _conversionState.update {
                 it.copy(
-                    toAmount = flowOf(amount),
-                    fromAmount = flow {
-                        val exchangeRate = it.fromCurrency.first().rate / it.toCurrency.first().rate
+                    toAmount = flow {
+                        val exchangeRate = it.toCurrency.first().rate / it.fromCurrency.first().rate
                         emit((amount.toDouble() * exchangeRate).toString())
-                    }
+                    },
                 )
             }
         }

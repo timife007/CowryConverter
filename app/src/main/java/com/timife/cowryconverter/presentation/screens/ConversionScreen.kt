@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -55,16 +56,28 @@ fun ConversionScreen(
     AppBackground {
         when(val state = rateState.value){
             is RatesState.Error -> {
-                Text(text = state.error, style = MaterialTheme.typography.bodyLarge.copy(
-                    color = MaterialTheme.colorScheme.error
-                ), modifier = Modifier.align(Alignment.Center))
+                Column(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.grid_1_5),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = state.error, style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.error
+                        ), textAlign = TextAlign.Center, modifier = Modifier
+                    )
+                    AppButton(text = stringResource(R.string.retry), modifier = Modifier) {
+                        viewModel.getAllRates()
+                    }
+                }
             }
             RatesState.Loading -> {
                 CircularProgressIndicator(
                     modifier = Modifier
-                        .fillMaxSize()
                         .align(Alignment.Center)
-                        .padding(Dimens.grid_5),
+                        .size(Dimens.grid_5),
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }
@@ -114,10 +127,9 @@ fun ConversionScreen(
                                         top = Dimens.grid_2
                                     )
                                     .fillMaxWidth(),
+                                hint = stringResource(R.string.conversion),
                                 text = toAmount.value,
-                                onTextChanged = {
-                                    viewModel.updateToAmount(it.toString())
-                                },
+                                isEnabled = false,
                                 trailingText = toCurrency.value.symbol
                             )
 
@@ -160,7 +172,7 @@ fun ConversionScreen(
                                     .fillMaxWidth(),
                                 text = stringResource(R.string.convert)
                             ) {
-
+                                viewModel.convertCurrency(fromAmount.value)
                             }
 
                             Row(

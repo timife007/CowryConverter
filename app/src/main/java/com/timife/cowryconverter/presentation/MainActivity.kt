@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
             CowryConverterTheme {
                 Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
                     TopAppBar(
+                        modifier = Modifier.wrapContentHeight(),
                         colors = TopAppBarColors(
                             containerColor = MaterialTheme.colorScheme.background,
                             navigationIconContentColor = MaterialTheme.colorScheme.secondary,

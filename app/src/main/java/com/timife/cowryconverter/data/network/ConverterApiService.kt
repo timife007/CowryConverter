@@ -8,11 +8,11 @@ import retrofit2.http.GET
 interface ConverterApiService {
 
     //fetch all available currencies and symbols
-    @GET("symbols")
+    @GET("/symbols")
     suspend fun getCurrencies(): Response<CurrenciesResponse?>
 
     //fetch all individual rates with the default base currency as EUR
-    @GET("latest")
+    @GET("/latest")
     suspend fun getRates(): Response<RatesResponse?>
 
 }

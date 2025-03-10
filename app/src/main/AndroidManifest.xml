@@ -9,6 +9,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:name=".ConverterApp"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -18,7 +19,6 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CowryConverter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

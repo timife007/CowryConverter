@@ -12,5 +12,5 @@ data class RatesResponse(
     @SerializedName("date")
     val date: String?,
     @SerializedName("rates")
-    val rates:Map<String, Long>?,
+    val rates: Map<String, Double>?,
 )
