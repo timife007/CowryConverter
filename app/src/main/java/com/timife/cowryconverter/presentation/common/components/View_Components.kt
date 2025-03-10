@@ -34,7 +34,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,6 +57,7 @@ import androidx.compose.ui.unit.sp
 import com.timife.cowryconverter.R
 import com.timife.cowryconverter.presentation.ui.theme.CowryConverterTheme
 import com.timife.cowryconverter.presentation.ui.theme.Dimens
+import com.timife.cowryconverter.presentation.viewmodels.data.RateUiModel
 
 @Composable
 fun V_MultiStyleText(
@@ -141,10 +141,6 @@ fun AppTextField(
         fieldValue.value = text
     }
 
-    var passwordVisible by rememberSaveable { mutableStateOf(false) }
-
-    val offWhite = MaterialTheme.colorScheme.surface
-
     val focusManager = LocalFocusManager.current
     OutlinedTextField(
         modifier = modifier.pointerInput(fieldValue) {
@@ -209,11 +205,12 @@ fun AppTextField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OutlinedDropdownMenu(
-    currencyOptions: List<String> = listOf("NGN", "USD", "GBP", "AUD", "CAD"),
+    currencyOptions: List<RateUiModel>,
+    selectedOption: RateUiModel,
+    onSelectCurrency: (RateUiModel) -> Unit,
     modifier: Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf(currencyOptions[0]) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -221,13 +218,15 @@ fun OutlinedDropdownMenu(
         onExpandedChange = { expanded = !expanded }
     ) {
         OutlinedTextField(
-            value = selectedOption,
+            value = selectedOption.symbol,
             textStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.surface,
                 focusedBorderColor = MaterialTheme.colorScheme.surface
             ),
-            onValueChange = {},
+            onValueChange = {
+
+            },
             readOnly = true,
             trailingIcon = {
                 Icon(
@@ -256,12 +255,12 @@ fun OutlinedDropdownMenu(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            option,
+                            option.symbol,
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
                         )
                     },
                     onClick = {
-                        selectedOption = option
+                        onSelectCurrency(option)
                         expanded = false
                     }
                 )
@@ -350,7 +349,10 @@ fun TextFieldPreview() {
                 )
 
                 OutlinedDropdownMenu(
-                    modifier = Modifier
+                    modifier = Modifier,
+                    onSelectCurrency = {},
+                    selectedOption = RateUiModel(),
+                    currencyOptions = listOf()
                 )
             }
         }

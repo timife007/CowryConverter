@@ -1,33 +1,23 @@
 package com.timife.cowryconverter.presentation.screens
 
 import android.graphics.Paint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
-import com.timife.cowryconverter.presentation.ui.theme.LightBlue
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
-import kotlin.math.PI
-import kotlin.math.sin
 
 @Composable
 fun Graph(modifier: Modifier = Modifier) {
     val tickColor = MaterialTheme.colorScheme.onPrimary
-    val textColor = MaterialTheme.colorScheme.onPrimary
-    val textSize = 30f
 
     val dateFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
     val calendar = Calendar.getInstance().apply {
