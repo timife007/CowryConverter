@@ -3,9 +3,9 @@ CowryConverter is a simple Currency Conversion App demonstrates modern Android d
 
 <p align="center">
 </p>
-<img src="https://github.com/user-attachments/assets/3dc33b8c-45ca-4d73-8557-1a3a3c4b08b8" width="300" height="600"/>
-<img src="https://github.com/user-attachments/assets/379cf1d6-f6c2-469c-a7f6-2f7dbf599e96" width="300" height="600"/>
-<img src="https://github.com/user-attachments/assets/91347d59-cfce-4127-976a-46bce199dde8" width="300" height="600"/>
+<img src="https://github.com/user-attachments/assets/3dc33b8c-45ca-4d73-8557-1a3a3c4b08b8" width="250" height="500"/>
+<img src="https://github.com/user-attachments/assets/379cf1d6-f6c2-469c-a7f6-2f7dbf599e96" width="250" height="500"/>
+<img src="https://github.com/user-attachments/assets/91347d59-cfce-4127-976a-46bce199dde8" width="250" height="500"/>
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 24
