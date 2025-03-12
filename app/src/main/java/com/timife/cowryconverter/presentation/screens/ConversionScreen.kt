@@ -91,7 +91,7 @@ fun ConversionScreen(
                 LazyColumn(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(vertical = Dimens.grid_5),
+                        .padding(top = Dimens.grid_5),
                     verticalArrangement = Arrangement.spacedBy(Dimens.grid_2),
                 ) {
                     item {
