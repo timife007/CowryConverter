@@ -45,4 +45,4 @@ To build this project, you require:
 - Android Studio ladybug
 - AGP 8.8.2
 - Kotlin version 2.1.0,
-- Get your api key from [Fixer.io](https://fixer.io/), paste it in the local.properties as api-key, and rebuild your project.
+- Get your api key from [Fixer.io](https://fixer.io/), paste it in your local.properties file as api-key, and rebuild your project.
