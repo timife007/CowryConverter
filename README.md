@@ -1,5 +1,5 @@
 <p align="center">  
-CowryConverter is a simple Currency Conversion App demonstrates modern Android development with Hilt, Coroutines, Flow, Jetpack libraries, Retrofit Jetpack Compose and Material Design based on MVVM architecture.
+CowryConverter is a simple Currency Conversion App demonstrates modern Android development with Hilt, Coroutines, Flow, Jetpack libraries, Retrofit, Jetpack Compose and Material Design 3 based on MVVM architecture.
 
 <p align="center">
 </p>
